@@ -1,0 +1,20 @@
+name: swellsage
+description: A new Flutter project.
+
+# ここに以下の`environment`セクションを追加
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # 他の依存関係
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
