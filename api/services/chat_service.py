@@ -1,13 +1,15 @@
-import openai
 import os
+from openai import OpenAI
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # APIキーの設定
-openai.api_key = os.getenv("OPENAI_API_KEY")
 
 async def chat_with_gpt(prompt: str):
-    response = openai.Completion.create(
-        engine="text-davinci-003",  # 使用するモデル
-        prompt=prompt,
-        max_tokens=100
-    )
-    return {"response": response.choices[0].text.strip()}
+    response = client.chat.completions.create(model="gpt-3.5-turbo",  # ChatGPTモデルを指定
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": prompt}
+    ])
+    # ChatGPTの応答を返す
+    return {"response": response.choices[0].message.content}
