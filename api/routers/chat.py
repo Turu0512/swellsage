@@ -9,5 +9,5 @@ class PromptRequest(BaseModel):
     prompt: str
 
 @router.post("/chat")
-async def chat_route(prompt: PromptRequest):
-    return await chat_with_gpt(prompt)
+async def chat_route(prompt_request: PromptRequest):
+    return await chat_with_gpt(prompt_request.prompt)
