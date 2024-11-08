@@ -4,14 +4,18 @@ from fastapi import HTTPException
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-async def chat_with_gpt(prompt: str):
+async def chat_with_gpt(point: str, features: str, wave_data: str):
     try:
-        print(f"Received prompt: {prompt}")  # 受け取ったプロンプトを出力
+        # 環境変数からプロンプトを取得
+        default_prompt = os.getenv("DEFAULT_PROMPT")
+        formatted_prompt = default_prompt.format(point=point, features=features, wave_data=wave_data)
+        print(f"Received prompt: {formatted_prompt}")  # 受け取ったプロンプトを出力
+
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": prompt}
+                {"role": "user", "content": formatted_prompt}
             ]
         )
         print(f"API Response: {response}")  # APIレスポンスを出力
